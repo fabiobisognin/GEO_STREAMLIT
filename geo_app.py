@@ -117,19 +117,17 @@ hist = np.histogram(filtered[DATE_TIME].dt.minute, bins=60, range=(0, 60))[0]
 
 chart_data = pd.DataFrame({"minute": range(60), "pickups": hist})
 
-# LAYING OUT THE HISTOGRAM SECTION
-
 st.write("")
 
-st.write("**Desglose por minuto entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+st.write("**Breakdown of rides per minute between %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
 
 st.altair_chart(alt.Chart(chart_data)
     .mark_area(
         interpolate='step-after',
     ).encode(
-        x=alt.X("minuts:Q", scale=alt.Scale(nice=False)),
+        x=alt.X("minute:Q", scale=alt.Scale(nice=False)),
         y=alt.Y("pickups:Q"),
-        tooltip=['minuto', 'pickup']
+        tooltip=['minute', 'pickups']
     ).configure_mark(
         opacity=0.5,
         color='red'
