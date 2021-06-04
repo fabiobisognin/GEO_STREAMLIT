@@ -134,5 +134,5 @@ z1.altair_chart(alt.Chart(chart_data)
         tooltip=['minute', 'pickups']
     ).configure_mark(
         opacity=0.7,
-        color='grey'
+        color='red'
     ), use_container_width=True)
