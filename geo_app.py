@@ -109,30 +109,28 @@ with c5:
     st.write("**Newark Airport entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
     map(data, newark[0],newark[1], zoom_level)
 
-# FILTERING DATA FOR THE HISTOGRAM
 filtered = data[
     (data[DATE_TIME].dt.hour >= hour_selected) & (data[DATE_TIME].dt.hour < (hour_selected + 1))
     ]
 
 hist = np.histogram(filtered[DATE_TIME].dt.minute, bins=60, range=(0, 60))[0]
 
-chart_data = pd.DataFrame({"5 minutos": range(20), "recogida": hist})
+chart_data = pd.DataFrame({"minute": range(60), "pickups": hist})
 
 # LAYING OUT THE HISTOGRAM SECTION
-z0, z1, z2 = st.beta_columns((1,21,1))
 
-z1.write("")
+st.write("")
 
-z1.write("**Desglose por minuto entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
+st.write("**Desglose por minuto entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 24))
 
-z1.altair_chart(alt.Chart(chart_data)
+st.altair_chart(alt.Chart(chart_data)
     .mark_area(
         interpolate='step-after',
     ).encode(
-        x=alt.X("minute:Q", scale=alt.Scale(nice=False)),
+        x=alt.X("minuts:Q", scale=alt.Scale(nice=False)),
         y=alt.Y("pickups:Q"),
-        tooltip=['minute', 'pickups']
+        tooltip=['minuto', 'pickup']
     ).configure_mark(
         opacity=0.5,
-        color='b'
+        color='red'
     ), use_container_width=True)
