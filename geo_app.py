@@ -68,9 +68,9 @@ def map(data, lat, lon, zoom):
 # LAYING OUT THE TOP SECTION OF THE APP
 t0,t1, t2, t3, t4 = st.beta_columns((1,8,1,12,1))
 
-t1.title("NYC Ridesharing Data")
+t1.title("Datos de viajes en Uber")
 
-hour_selected = t1.slider("Select hour of pickup", 0, 23)
+hour_selected = t1.slider("Selecciona una hora deslizando", 0, 23)
 
 t3.write(
     """
@@ -94,19 +94,19 @@ zoom_level = 12
 midpoint = (np.average(data["lat"]), np.average(data["lon"]))
 
 with c1:
-    st.write("**All New York City from %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+    st.write("**Toda New York City entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
     map(data, midpoint[0], midpoint[1], 11)
 
 with c3:
-    st.write("**La Guardia Airport from %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+    st.write("**La Guardia Airport entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
     map(data, la_guardia[0],la_guardia[1], zoom_level)
 
 with c4:
-    st.write("**JFK Airport from %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+    st.write("**JFK Airport entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
     map(data, jfk[0],jfk[1], zoom_level)
 
 with c5:
-    st.write("**Newark Airport from %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+    st.write("**Newark Airport entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
     map(data, newark[0],newark[1], zoom_level)
 
 # FILTERING DATA FOR THE HISTOGRAM
@@ -116,14 +116,14 @@ filtered = data[
 
 hist = np.histogram(filtered[DATE_TIME].dt.minute, bins=60, range=(0, 60))[0]
 
-chart_data = pd.DataFrame({"minute": range(60), "pickups": hist})
+chart_data = pd.DataFrame({"minuto": range(60), "recogida": hist})
 
 # LAYING OUT THE HISTOGRAM SECTION
 z0, z1, z2 = st.beta_columns((1,21,1))
 
 z1.write("")
 
-z1.write("**Breakdown by minute between %i:00 and %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+z1.write("**Desglose por minuto entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 24))
 
 z1.altair_chart(alt.Chart(chart_data)
     .mark_area(
@@ -133,6 +133,6 @@ z1.altair_chart(alt.Chart(chart_data)
         y=alt.Y("pickups:Q"),
         tooltip=['minute', 'pickups']
     ).configure_mark(
-        opacity=0.5,
-        color='red'
+        opacity=0.7,
+        color='blue'
     ), use_container_width=True)
