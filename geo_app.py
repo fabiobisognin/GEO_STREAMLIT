@@ -68,7 +68,7 @@ def map(data, lat, lon, zoom):
 # LAYING OUT THE TOP SECTION OF THE APP
 t0,t1, t2, t3, t4 = st.beta_columns((1,8,1,12,1))
 
-t1.title("Datos de viajes en Uber")
+t1.title("Datos de viajes en Uber en Nueva York")
 
 hour_selected = t1.slider("Selecciona una hora deslizando", 0, 23)
 
@@ -116,7 +116,7 @@ filtered = data[
 
 hist = np.histogram(filtered[DATE_TIME].dt.minute, bins=60, range=(0, 60))[0]
 
-chart_data = pd.DataFrame({"minuto": range(60), "recogida": hist})
+chart_data = pd.DataFrame({"5 minutos": range(20), "recogida": hist})
 
 # LAYING OUT THE HISTOGRAM SECTION
 z0, z1, z2 = st.beta_columns((1,21,1))
@@ -133,6 +133,6 @@ z1.altair_chart(alt.Chart(chart_data)
         y=alt.Y("pickups:Q"),
         tooltip=['minute', 'pickups']
     ).configure_mark(
-        opacity=0.7,
-        color='red'
+        opacity=0.5,
+        color='b'
     ), use_container_width=True)
