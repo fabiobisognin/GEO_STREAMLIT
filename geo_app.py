@@ -123,7 +123,7 @@ z0, z1, z2 = st.beta_columns((1,21,1))
 
 z1.write("")
 
-z1.write("**Desglose por minuto entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 24))
+z1.write("**Desglose por minuto entre %i:00 y %i:00**" % (hour_selected, (hour_selected + 1) % 22))
 
 z1.altair_chart(alt.Chart(chart_data)
     .mark_area(
@@ -134,5 +134,5 @@ z1.altair_chart(alt.Chart(chart_data)
         tooltip=['minute', 'pickups']
     ).configure_mark(
         opacity=0.7,
-        color='blue'
+        color='grey'
     ), use_container_width=True)
