@@ -75,8 +75,9 @@ hour_selected = t1.slider("Select hour of pickup", 0, 23)
 t3.write(
     """
     ##
-    Examining how Uber pickups vary over time in New York City's and at its major regional airports.
-    By sliding the slider on the left you can view different slices of time and explore different transportation trends.
+Esta app examina cómo las recolecciones de Uber varían con el tiempo en la ciudad de Nueva York y en sus principales aeropuertos regionales.
+Al deslizar el control aquí la izquierda, puede ver diferentes períodos de tiempo y explorar diferentes tendencias de transporte.
+
     """)
 
 # FILTERING DATA BY HOUR SELECTED
